@@ -37,10 +37,10 @@ pipeline {
                     echo 'Push to Repo'
                     docker push dhivya1806/python-todo-app:${BUILD_NUMBER}
                     '''
-            }
-            }
+                    }
+                }
+           }
         }
-        
         stage('Checkout K8S manifest SCM'){
             steps {
                 git credentialsId: 'github_credentials', 
