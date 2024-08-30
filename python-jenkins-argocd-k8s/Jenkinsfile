@@ -29,12 +29,15 @@ pipeline {
 
         stage('Push the artifacts'){
            steps{
-                script{
+                script {
+                    withCredentials([usernamePassword(credentialsId: 'Docker_cred', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
                     sh '''
+                    echo 'Logging in to Docker Hub'
+                    echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
                     echo 'Push to Repo'
                     docker push dhivya1806/python-todo-app:${BUILD_NUMBER}
                     '''
-                }
+            }
             }
         }
         
