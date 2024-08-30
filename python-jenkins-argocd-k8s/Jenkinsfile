@@ -58,7 +58,11 @@ pipeline {
                         sed -i "s/32/${BUILD_NUMBER}/g" deploy.yaml
                         cat deploy.yaml
                         git add deploy.yaml
-                        git commit -m 'Updated the deploy yaml | Jenkins Pipeline'
+                        if ! git diff --cached --quiet; then
+                        git commit -m "Updated the deploy yaml | Jenkins Pipeline"
+                        else
+                        echo "No changes to commit"
+                        fi
                         git remote -v
                         git push https://github.com/dhivya1806/Manifests_repo.git HEAD:main
                         '''                        
