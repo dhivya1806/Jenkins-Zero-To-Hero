@@ -64,7 +64,9 @@ pipeline {
                         echo "No changes to commit"
                         fi
                         git remote -v
-                        git push https://github.com/dhivya1806/Manifests_repo.git HEAD:main
+                        git config user.name "Dhivya"
+                        git config user.email "dhivyasherlypapa@gmail.com"
+                        git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/dhivya1806/Manifests_repo.git HEAD:main
                         '''                        
                     }
                 }
