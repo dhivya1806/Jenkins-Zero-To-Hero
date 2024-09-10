@@ -1,22 +1,23 @@
 pipeline {
-  agent {
-    docker {
-      image 'abhishekf5/maven-abhishek-docker-agent:v1'
-      args '--user root -v /var/run/docker.sock:/var/run/docker.sock' // mount Docker socket to access the host's Docker daemon
+  agent any
+  tools {
+        jdk 'JDK_17' 
+        maven 'Maven_3.8.7'
     }
-  }
   stages {
-    stage('Checkout') {
+    stage('Checkout'){
       steps {
-        sh 'echo passed'
-        //git branch: 'main', url: 'https://github.com/dhivya1806/Jenkins-Zero-To-Hero.git'
+        git credentialsId: 'github_credentials', 
+        url: 'https://github.com/dhivya1806/Jenkins-Zero-To-Hero.git',
+        branch: 'main'
       }
     }
     stage('Build and Test') {
       steps {
         sh 'ls -ltr'
-        // build the project and create a JAR file
-        sh 'cd java-maven-sonar-argocd-helm-k8s/spring-boot-app && mvn clean package'
+        dir('java-maven-sonar-argocd-helm-k8s/spring-boot-app'){
+          sh 'mvn clean install'
+        }
       }
     }
     stage('Static Code Analysis') {
