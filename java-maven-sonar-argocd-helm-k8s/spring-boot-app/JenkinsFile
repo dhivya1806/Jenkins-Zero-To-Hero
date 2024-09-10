@@ -76,7 +76,7 @@ pipeline {
                     withCredentials([usernamePassword(credentialsId: 'github_credentials', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
                         sh '''
                         cat deployment.yaml
-                        sed -i "s/\\(image:.*:\\)[0-9]\\+/\\1${BUILD_NUMBER}/" deploy.yaml
+                        sed -i "s/\\(image:.*:\\)[0-9]\\+/\\1${BUILD_NUMBER}/" deployment.yaml
                         cat deployment.yaml
                         git add deployment.yaml
                         if ! git diff --cached --quiet; then
