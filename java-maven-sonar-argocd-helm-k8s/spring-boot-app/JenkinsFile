@@ -4,6 +4,9 @@ pipeline {
         jdk 'JDK_17' 
         maven 'Maven3'
     }
+  environment {
+        JAVA_HOME = "${tool 'JDK_17'}"   // Set the JAVA_HOME environment variable
+    }
   stages {
     stage('Checkout'){
       steps {
